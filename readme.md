@@ -11,7 +11,9 @@ This script was generated mostly with the help of AI (GPT 5 Codex Copilot integr
 
 first run:
 
-``` pip install -r requirements.txt ``` 
+```
+pip install -r requirements.txt
+``` 
 
 Then download the page as HTML and run the "local" script, selecting the html file after the file dialog OR run the "online" script.
 
