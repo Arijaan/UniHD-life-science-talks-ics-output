@@ -1,0 +1,4 @@
+beautifulsoup4>=4.12
+ics>=0.7
+requests>=2.32
+tzdata>=2024.1
