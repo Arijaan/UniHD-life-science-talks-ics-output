@@ -4,6 +4,7 @@ from datetime import datetime, timedelta, time
 from bs4 import BeautifulSoup
 from ics import Calendar, Event
 import tkinter as tk
+from tkinter import filedialog
 
 try:
     from zoneinfo import ZoneInfo
@@ -26,7 +27,7 @@ run the "online" script
 '''
 root = tk.Tk()
 root.withdraw()
-HTML_PATH = tk.filedialog.askopenfilename(
+HTML_PATH = filedialog.askopenfilename(
     title="Select the HTML file of the events page",
     filetypes=[("HTML files", "*.html;*.htm"), ("All files", "*.*")],
 )
