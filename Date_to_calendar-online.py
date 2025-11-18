@@ -10,7 +10,7 @@ except ImportError:
     ZoneInfo = None
 
 SOURCE_URL = "https://www.uni-heidelberg.de/en/research/research-profile/fields-of-focus/field-of-focus-i/life-science-talks-on-campus"
-OUTPUT_PATH = "life_science_talks.ics"
+OUTPUT_PATH = "life_science_talks_stripped_from_live_website.ics"
 
 DEFAULT_TIMEZONE_NAME = "Europe/Berlin"
 if ZoneInfo:
@@ -36,6 +36,25 @@ def clean_text(node):
     if not node:
         return ""
     return " ".join(node.stripped_strings)
+
+
+def find_events_table(soup):
+    selectors = [
+        "table:nth-of-type(2)",
+        "article table",
+        "table.Table_SBWzZ",
+        "table:has(strong)",
+    ]
+    for selector in selectors:
+        table = soup.select_one(selector)
+        if table:
+            return table.find("tbody") or table
+
+    table = soup.find("table")
+    if table:
+        return table.find("tbody") or table
+
+    return None
 
 
 def extract_month_and_year(text, fallback_year):
@@ -295,7 +314,7 @@ def main():
 
     soup = BeautifulSoup(response.text, "html.parser")
 
-    table = soup.select_one("table:nth-of-type(2) > tbody")
+    table = find_events_table(soup)
     if table is None:
         raise RuntimeError("Could not find the expected table with event data.")
 
